@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : ScriptableObject
+[CreateAssetMenu(fileName = "PlayerStats", menuName = "Scriptable Objects/PlayerStats")]
+public class PlayerStats : ScriptableObject
 {
-
     //Assumed Stats for player to have ( Damn it bluebeard I DUNNO WHAT WE ARE DOING HERE )
 
     [Header("Progression")]
@@ -21,7 +21,7 @@ public class NewMonoBehaviourScript : ScriptableObject
     public float JumpHeight = 5f;
     public float FallSpeed = 1f;
     public float HorizontalSpeed = 5f;
-    
+
     [Header("Time Tracker")]
     public float TimeElapsed = 0f;
 
@@ -35,7 +35,4 @@ public class NewMonoBehaviourScript : ScriptableObject
 
     }
 
-
-
-    //
 }
