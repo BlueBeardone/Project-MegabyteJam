@@ -5,6 +5,7 @@ public class DoubleJumpSkill : ISkill
     public SkillType Type => SkillType.DoubleJump;
 
     public float Cooldown => 2.0f;
+    
 
     public string Description => "Allows the player to jump a second time while in the air.";
 
