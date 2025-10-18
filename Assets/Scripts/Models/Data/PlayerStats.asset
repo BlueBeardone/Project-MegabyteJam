@@ -19,5 +19,5 @@ MonoBehaviour:
   CurrentHealth: 5
   FallSpeed: 1
   JumpHeight: 5
-  HorizontalSpeed: 1
+  Speed: 5
   TimeElapsed: 0

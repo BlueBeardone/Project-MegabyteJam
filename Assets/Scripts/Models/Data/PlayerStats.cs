@@ -22,6 +22,7 @@ public class PlayerStats : ScriptableObject
     public float FallSpeed = 1f;
     public float JumpHeight = 5f;
     public float Speed = 1f;
+    public bool hasJumped = false;
 
     [Header("Time Tracker")]
     public float TimeElapsed = 0f;
@@ -36,6 +37,7 @@ public class PlayerStats : ScriptableObject
         CollectedPoints = 0;
         TimeElapsed = 0f;
         CurrentHealth = MaximumHealth;
+        hasJumped = false;
     }
 
 
