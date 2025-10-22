@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
+        //This is wrong do over
         if (Mathf.Abs(xInput) > 0)
         {
             body.linearVelocity = new Vector2(xInput * stats.Speed, body.linearVelocity.y);
