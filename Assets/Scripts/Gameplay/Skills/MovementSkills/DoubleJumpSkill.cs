@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class DoubleJumpSkill : ISkill
 {
     public SkillType Type => SkillType.DoubleJump;
+
+    public Boolean secondJump = true;
 
     public float Cooldown => 2.0f;
 
@@ -11,10 +14,10 @@ public class DoubleJumpSkill : ISkill
     public void Execute(GameObject player)
     {
         var movement = player.GetComponent<PlayerMovement>(); // Waiting for Jack's PlayerMovement script
-        if (movement != null && movement.CanDoubleJump)
+        if (movement != null && !movement.stats.hasJumped && secondJump)
         {
-            movement.Jump();
-            movement.CanDoubleJump = false;
+            movement.Jumping();
+            secondJump = false;
         }
     }
 }

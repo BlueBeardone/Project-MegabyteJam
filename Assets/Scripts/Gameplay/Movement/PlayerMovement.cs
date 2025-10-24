@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 {
-    [SerializeField] PlayerStats stats;
+    public PlayerStats stats;
 
     //Initialized Variables
 
