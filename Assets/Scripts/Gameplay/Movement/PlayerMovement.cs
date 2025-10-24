@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.Dynamic;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,8 +29,6 @@ public class PlayerMovement : MonoBehaviour
             body.linearVelocity = new Vector2(xInput * stats.Speed, body.linearVelocity.y);
         }
 
-        Vector2 direction = new Vector2(xInput, yInput).normalized;
-        body.linearVelocity = direction * stats.Speed;
     }
 
 
@@ -39,18 +38,24 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log(stats.hasJumped);
 
-        if (Input.GetKeyDown(KeyCode.W) && !stats.hasJumped)
+        if (Input.GetKeyDown(KeyCode.W) && !stats.hasJumped || Input.GetKeyDown(KeyCode.UpArrow) && !stats.hasJumped || Input.GetKeyDown(KeyCode.Space) && !stats.hasJumped)
         {
 
             body.AddForce(Vector2.up * stats.JumpHeight, ForceMode2D.Impulse);
             stats.hasJumped = true;
+   
         }
-    
-
-    
     }
 
-
+    // Testing Jump
+    public void ResetJump() 
+    { 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            stats.hasJumped = false;
+        }
+    }
+    
 
 
     // Update is called once per frame
@@ -61,23 +66,9 @@ public class PlayerMovement : MonoBehaviour
 
         Move();
         Jumping();
-
+        ResetJump();
+        
     }
       
     }
-
-
-    
-
-    
-
-
-
-
-
-
-
-
-    
-    
 

@@ -18,6 +18,7 @@ MonoBehaviour:
   MaximumHealth: 5
   CurrentHealth: 5
   FallSpeed: 1
-  JumpHeight: 5
-  Speed: 5
+  JumpHeight: 35
+  Speed: 10
+  hasJumped: 1
   TimeElapsed: 0
