@@ -1,33 +1,34 @@
-using System;
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class DashSkill : ISkill
 {
     public SkillType Type => SkillType.Dash;
-
     public float Cooldown => 2f;
-
-    public Boolean executed = false;
-
-    public string Description => "Allows the player to dash forward quickly.";
+    public string Description => "Quickly dash forward";
 
     public void Execute(GameObject player)
     {
-        if (!executed)
-        {
-            executed = true;
-            player.GetComponent<MonoBehaviour>().StartCoroutine(PerformDash(player));
-        }
+        player.GetComponent<PlayerSkillManager>().StartCoroutine(PerformDash(player));
     }
 
     private IEnumerator PerformDash(GameObject player)
     {
+        var skillManager = player.GetComponent<PlayerSkillManager>();
+        var stats = skillManager.GetStats();
+        var body = skillManager.GetRigidbody();
         
-        var movement = player.GetComponent<PlayerMovement>(); // Waiting for Jack's PlayerMovement script
-        float originalSpeed = movement.stats.Speed;
-        movement.stats.Speed *= 3f;
-        yield return new WaitForSeconds(0.2f);
-        movement.stats.Speed = originalSpeed;
+        float originalSpeed = stats.Speed;
+        stats.Speed *= skillManager.dashSpeedMultiplier;
+        
+        // Apply dash force
+        float direction = Mathf.Sign(body.linearVelocity.x);
+        if (direction == 0) direction = 1; // Default to right if standing still
+        body.linearVelocity = new Vector2(direction * stats.Speed, body.linearVelocity.y);
+        
+        yield return new WaitForSeconds(skillManager.dashDuration);
+        
+        // Restore original speed
+        stats.Speed = originalSpeed;
     }
 }

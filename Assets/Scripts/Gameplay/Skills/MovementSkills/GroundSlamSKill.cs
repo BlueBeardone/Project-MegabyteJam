@@ -1,29 +1,15 @@
 using UnityEngine;
 
-public class GroundSlamSKill : ISkill
+public class GroundSlamSkill : ISkill
 {
     public SkillType Type => SkillType.GroundSlam;
     public float Cooldown => 1.5f;
-    public bool executed = false;
     public string Description => "Slam down to the ground from air";
-
 
     public void Execute(GameObject player)
     {
-        if (!executed)
-        {
-            executed = true;
-        }
-        else
-        {
-            return;
-        }
-
-        
-        var rb = player.GetComponent<Rigidbody2D>();
-        if (rb != null) // Waiting for Jack's PlayerMovement script
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -20f);
-        }
+        var body = player.GetComponent<PlayerSkillManager>().GetRigidbody();
+        body.linearVelocity = new Vector2(body.linearVelocity.x, -20f);
+        Debug.Log("Ground slam executed!");
     }
 }

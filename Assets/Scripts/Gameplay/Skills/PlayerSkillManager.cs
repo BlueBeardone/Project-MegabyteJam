@@ -3,14 +3,28 @@ using System.Collections.Generic;
 
 public class PlayerSkillManager : MonoBehaviour
 {
+    [Header("Skill System")]
     [SerializeField] private List<SkillType> unlockedSkills = new List<SkillType>();
     
     private Dictionary<SkillType, ISkill> skillInstances = new Dictionary<SkillType, ISkill>();
     private Dictionary<SkillType, float> skillCooldowns = new Dictionary<SkillType, float>();
     private SkillFactory skillFactory = new SkillFactory();
 
-    private void Start()
+    // Components
+    private PlayerStats stats;
+    private Rigidbody2D body;
+    private PlayerMovement movement;
+
+    [Header("Skill Settings")]
+    public float dashSpeedMultiplier = 3f;
+    public float dashDuration = 0.3f;
+    public GameObject fireballPrefab;
+
+    private void Awake()
     {
+        stats = GetComponent<PlayerStats>();
+        body = GetComponent<Rigidbody2D>();
+        movement = GetComponent<PlayerMovement>();
         InitializeSkills();
     }
 
@@ -27,7 +41,7 @@ public class PlayerSkillManager : MonoBehaviour
     private void Update()
     {
         UpdateCooldowns();
-        HandleInput();
+        HandleSkillInput();
     }
 
     private void UpdateCooldowns()
@@ -42,21 +56,28 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
-    private void HandleInput()
+    private void HandleSkillInput()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && HasSkill(SkillType.DoubleJump))
-            TryExecuteSkill(SkillType.DoubleJump);
+        // Double Jump is handled in PlayerMovement since it uses jump input
         
-        if (Input.GetKeyDown(KeyCode.Alpha2) && HasSkill(SkillType.Dash))
+        // Dash - Left Shift
+        if (Input.GetKeyDown(KeyCode.LeftShift) && HasSkill(SkillType.Dash))
+        {
             TryExecuteSkill(SkillType.Dash);
+        }
         
-        if (Input.GetKeyDown(KeyCode.Alpha3) && HasSkill(SkillType.GroundSlam))
+        // Ground Slam - S or Down Arrow
+        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && 
+            HasSkill(SkillType.GroundSlam))
+        {
             TryExecuteSkill(SkillType.GroundSlam);
+        }
     }
 
     public bool TryExecuteSkill(SkillType type)
     {
-        if (!HasSkill(type) || skillCooldowns[type] > 0) return false;
+        if (!HasSkill(type) || skillCooldowns[type] > 0) 
+            return false;
 
         skillInstances[type].Execute(gameObject);
         skillCooldowns[type] = skillInstances[type].Cooldown;
@@ -71,8 +92,16 @@ public class PlayerSkillManager : MonoBehaviour
             ISkill skill = skillFactory.CreateSkill(type);
             skillInstances[type] = skill;
             skillCooldowns[type] = 0f;
+            
+            Debug.Log($"Unlocked skill: {type}");
         }
     }
 
     public bool HasSkill(SkillType type) => unlockedSkills.Contains(type);
+    public float GetCooldown(SkillType type) => skillCooldowns.ContainsKey(type) ? skillCooldowns[type] : 0f;
+    
+    // Public methods for skills to access player components
+    public PlayerStats GetStats() => stats;
+    public Rigidbody2D GetRigidbody() => body;
+    public PlayerMovement GetMovement() => movement;
 }
