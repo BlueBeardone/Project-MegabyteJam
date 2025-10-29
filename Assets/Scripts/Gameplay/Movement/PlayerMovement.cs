@@ -17,8 +17,15 @@ public class PlayerMovement : MonoBehaviour
 
     public float xInput; 
     public float yInput;
+    public bool Grounded;
+    public BoxCollider2D GroundCheck;
+    public LayerMask groundMask;
 
-    
+    //Checking if player is touching the ground
+    public void CheckGround()
+    {
+        Grounded = Physics2D.OverlapAreaAll(GroundCheck.bounds.min, GroundCheck.bounds.max, groundMask).Length > 0;
+    }
 
     //Movement Function
 
@@ -31,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
 
     //Jumping Function
 
@@ -56,6 +62,20 @@ public class PlayerMovement : MonoBehaviour
             stats.hasJumped = false;
         }
     }
+
+    // Adding Air Resistance
+
+    public void IsJumping()
+    {
+        if (!Grounded)
+        {
+            stats.Speed = 5;
+        }
+        else
+        {
+            stats.Speed = 10;
+        }
+    }
     
 
 
@@ -68,7 +88,9 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Jumping();
         ResetJump();
-        
+        CheckGround();
+        IsJumping();
+
     }
       
     }
