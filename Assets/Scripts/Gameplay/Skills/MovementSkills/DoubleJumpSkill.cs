@@ -9,7 +9,7 @@ public class DoubleJumpSkill : ISkill
     public void Execute(GameObject player)
     {
         var skillManager = player.GetComponent<PlayerSkillManager>();
-        var stats = skillManager.GetStats();
+        var stats = skillManager.GetPlayerStats();
         var body = skillManager.GetRigidbody();
         
         // Reset y velocity and jump again

@@ -12,7 +12,7 @@ public class SkillFactory
             case SkillType.Dash:
                 return new DashSkill();
             case SkillType.GroundSlam:
-                return new GroundSlamSKill();
+                return new GroundSlamSkill();
             default:
                 throw new ArgumentException($"Invalid skill type: {type}");
         }
