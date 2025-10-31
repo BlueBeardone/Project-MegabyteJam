@@ -3,6 +3,7 @@ using UnityEngine;
 public class SkillUnlocker : MonoBehaviour
 {
     [SerializeField] private SkillType skillToUnlock;
+    [SerializeField] private SkillData targetSkillData;
     [SerializeField] private string unlockMessage = "New Ability Acquired!";
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -10,11 +11,11 @@ public class SkillUnlocker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             var skillManager = other.GetComponent<PlayerSkillManager>();
-            if (skillManager != null)
+            if (skillManager != null && !skillManager.HasSkill(skillToUnlock))
             {
                 skillManager.UnlockSkill(skillToUnlock);
                 Debug.Log(unlockMessage);
-                gameObject.SetActive(false); // Disable after unlocking
+                gameObject.SetActive(false);
             }
         }
     }
