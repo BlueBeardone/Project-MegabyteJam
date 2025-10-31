@@ -1105,10 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14f74d0571783e479c88938929bcecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkillManager
-  unlockedSkills: 000000000100000002000000
-  dashSpeedMultiplier: 20
-  dashDuration: 5
-  fireballPrefab: {fileID: 0}
+  skillData: {fileID: 11400000, guid: c12304da2384d8a4c97774c035ecbfa8, type: 2}
 --- !u!70 &1767533887
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
