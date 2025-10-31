@@ -15,18 +15,20 @@ public class DashSkill : ISkill
     private IEnumerator PerformDash(GameObject player)
     {
         var skillManager = player.GetComponent<PlayerSkillManager>();
-        var stats = skillManager.GetStats();
+        var stats = skillManager.GetPlayerStats();
         var body = skillManager.GetRigidbody();
+        var skillData = skillManager.GetSkillData();
         
         float originalSpeed = stats.Speed;
-        stats.Speed *= skillManager.dashSpeedMultiplier;
+        stats.Speed *= skillData.dashSpeedMultiplier;
         
         // Apply dash force
         float direction = Mathf.Sign(body.linearVelocity.x);
         if (direction == 0) direction = 1; // Default to right if standing still
+        
         body.linearVelocity = new Vector2(direction * stats.Speed, body.linearVelocity.y);
         
-        yield return new WaitForSeconds(skillManager.dashDuration);
+        yield return new WaitForSeconds(skillData.dashDuration);
         
         // Restore original speed
         stats.Speed = originalSpeed;
