@@ -8,7 +8,7 @@ public class GroundSlamSkill : ISkill
 
     public void Execute(GameObject player)
     {
-        var body = player.GetComponent<PlayerSkillManager>().GetRigidbody();
+        var body = player.GetComponent<PlayerSkillManager>().playerRigidbody;
         body.linearVelocity = new Vector2(body.linearVelocity.x, -20f);
         Debug.Log("Ground slam executed!");
     }
