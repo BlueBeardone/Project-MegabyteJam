@@ -15,9 +15,9 @@ public class DashSkill : ISkill
     private IEnumerator PerformDash(GameObject player)
     {
         var skillManager = player.GetComponent<PlayerSkillManager>();
-        var stats = skillManager.GetPlayerStats();
-        var body = skillManager.GetRigidbody();
-        var skillData = skillManager.GetSkillData();
+        var stats = skillManager.playerStats;
+        var body = skillManager.playerRigidbody;
+        var skillData = skillManager.skillData;
         
         float originalSpeed = stats.Speed;
         stats.Speed *= skillData.dashSpeedMultiplier;
