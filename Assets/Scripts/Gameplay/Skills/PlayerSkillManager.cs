@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerSkillManager : MonoBehaviour
 {
@@ -60,6 +61,8 @@ public class PlayerSkillManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && HasSkill(SkillType.Dash))
         {
             TryExecuteSkill(SkillType.Dash);
+            Debug.Log("Dash executed");
+            Console.WriteLine("Dash executed");
         }
         
         // Ground Slam - S or Down Arrow
@@ -67,6 +70,8 @@ public class PlayerSkillManager : MonoBehaviour
             HasSkill(SkillType.GroundSlam))
         {
             TryExecuteSkill(SkillType.GroundSlam);
+            Debug.Log("Ground Slam executed");
+            Console.WriteLine("Ground Slam executed");
         }
     }
     
