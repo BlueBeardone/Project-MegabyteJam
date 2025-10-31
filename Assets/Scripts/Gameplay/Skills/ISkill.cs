@@ -7,4 +7,3 @@ public interface ISkill
     float Cooldown { get; }
     string Description { get; }
 }
-
