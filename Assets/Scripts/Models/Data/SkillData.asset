@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b4be47e37dd18488a9d48ff624e853, type: 3}
   m_Name: SkillData
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  unlockedSkills: 
+  unlockedSkills: 000000000100000002000000
   dashCooldown: 2
   groundSlamCooldown: 1.5
-  fireballCooldown: 0.8
   dashSpeedMultiplier: 3
   dashDuration: 0.3
