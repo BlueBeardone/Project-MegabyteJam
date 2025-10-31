@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 {
-    [SerializeField] PlayerStats stats;
+    public PlayerStats stats;
 
     //Initialized Variables
 
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jumping() {
 
-        Debug.Log(stats.hasJumped);
+        //Debug.Log(stats.hasJumped);
 
         if (Input.GetKeyDown(KeyCode.W) && !stats.hasJumped || Input.GetKeyDown(KeyCode.UpArrow) && !stats.hasJumped || Input.GetKeyDown(KeyCode.Space) && !stats.hasJumped)
         {

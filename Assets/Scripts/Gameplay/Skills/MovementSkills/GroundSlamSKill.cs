@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GroundSlamSKill : ISkill
+public class GroundSlamSkill : ISkill
 {
     public SkillType Type => SkillType.GroundSlam;
     public float Cooldown => 1.5f;
@@ -8,10 +8,8 @@ public class GroundSlamSKill : ISkill
 
     public void Execute(GameObject player)
     {
-        var rb = player.GetComponent<Rigidbody2D>();
-        if (rb != null && !player.GetComponent<PlayerMovement>().IsGrounded) // Waiting for Jack's PlayerMovement script
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -20f);
-        }
+        var body = player.GetComponent<PlayerSkillManager>().playerRigidbody;
+        body.linearVelocity = new Vector2(body.linearVelocity.x, -20f);
+        Debug.Log("Ground slam executed!");
     }
 }
