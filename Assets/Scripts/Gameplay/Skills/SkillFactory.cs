@@ -1,20 +1,15 @@
 using System;
-using UnityEngine;
 
-public class SkillFactory 
+public class SkillFactory
 {
     public ISkill CreateSkill(SkillType type)
     {
-        switch (type)
+        return type switch
         {
-            case SkillType.DoubleJump:
-                return new DoubleJumpSkill();
-            case SkillType.Dash:
-                return new DashSkill();
-            case SkillType.GroundSlam:
-                return new GroundSlamSkill();
-            default:
-                throw new ArgumentException($"Invalid skill type: {type}");
-        }
+            SkillType.DoubleJump => new DoubleJumpSkill(),
+            SkillType.Dash => new DashSkill(),
+            SkillType.GroundSlam => new GroundSlamSkill(),
+            _ => throw new ArgumentException($"Invalid skill type: {type}")
+        };
     }
 }
