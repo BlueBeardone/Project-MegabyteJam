@@ -76,12 +76,6 @@ public class PlayerSkillManager : MonoBehaviour
         {
             TryExecuteSkill(SkillType.GroundSlam);
         }
-        
-        // Fireball - F
-        if (Input.GetKeyDown(KeyCode.F) && HasSkill(SkillType.Fireball))
-        {
-            TryExecuteSkill(SkillType.Fireball);
-        }
     }
     
     private void HandleDoubleJump()
@@ -117,7 +111,6 @@ public class PlayerSkillManager : MonoBehaviour
         {
             SkillType.Dash => skillData.dashCooldown,
             SkillType.GroundSlam => skillData.groundSlamCooldown,
-            SkillType.Fireball => skillData.fireballCooldown,
             _ => 0f
         };
     }

@@ -10,7 +10,6 @@ public class SkillData : ScriptableObject
     [Header("Skill Cooldowns")]
     public float dashCooldown = 2f;
     public float groundSlamCooldown = 1.5f;
-    //public float fireballCooldown = 0.8f;
     
     [Header("Skill Settings")]
     public float dashSpeedMultiplier = 3f;
