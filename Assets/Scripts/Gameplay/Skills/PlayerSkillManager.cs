@@ -8,7 +8,7 @@ public class PlayerSkillManager : MonoBehaviour
     public SkillData skillData;
     
     [Header("Skill References")]
-    public GameObject fireballPrefab;
+    //public GameObject fireballPrefab;
     
     // Runtime cooldown tracking
     private Dictionary<SkillType, float> currentCooldowns = new Dictionary<SkillType, float>();
@@ -75,12 +75,6 @@ public class PlayerSkillManager : MonoBehaviour
             HasSkill(SkillType.GroundSlam))
         {
             TryExecuteSkill(SkillType.GroundSlam);
-        }
-        
-        // Fireball - F
-        if (Input.GetKeyDown(KeyCode.F) && HasSkill(SkillType.Fireball))
-        {
-            TryExecuteSkill(SkillType.Fireball);
         }
     }
     
