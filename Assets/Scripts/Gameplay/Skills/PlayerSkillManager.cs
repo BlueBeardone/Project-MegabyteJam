@@ -7,28 +7,20 @@ public class PlayerSkillManager : MonoBehaviour
     [Header("Skill Data")]
     public SkillData skillData;
     
-    [Header("Skill References")]
-    //public GameObject fireballPrefab;
+    [Header("Player References")]
+    public PlayerStats playerStats; // Assign in inspector
+    public Rigidbody2D playerRigidbody; // Assign in inspector
     
     // Runtime cooldown tracking
     private Dictionary<SkillType, float> currentCooldowns = new Dictionary<SkillType, float>();
     private SkillFactory skillFactory = new SkillFactory();
     private Dictionary<SkillType, ISkill> skillInstances = new Dictionary<SkillType, ISkill>();
     
-    // Components
-    private PlayerStats stats;
-    private Rigidbody2D body;
-    private PlayerMovement movement;
-    
     // Double jump tracking
     private bool hasDoubleJumped = false;
     
     private void Awake()
     {
-        stats = GetComponent<PlayerStats>();
-        body = GetComponent<Rigidbody2D>();
-        movement = GetComponent<PlayerMovement>();
-        
         InitializeSkillSystem();
     }
     
@@ -82,14 +74,14 @@ public class PlayerSkillManager : MonoBehaviour
     {
         // Double jump is handled separately since it uses the same input as regular jump
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && 
-            stats.hasJumped && HasSkill(SkillType.DoubleJump) && !hasDoubleJumped)
+            playerStats.hasJumped && HasSkill(SkillType.DoubleJump) && !hasDoubleJumped)
         {
             TryExecuteSkill(SkillType.DoubleJump);
             hasDoubleJumped = true;
         }
         
         // Reset double jump when landing
-        if (!stats.hasJumped)
+        if (!playerStats.hasJumped)
         {
             hasDoubleJumped = false;
         }
@@ -129,9 +121,4 @@ public class PlayerSkillManager : MonoBehaviour
     
     public bool HasSkill(SkillType type) => skillData.HasSkill(type);
     public float GetCurrentCooldown(SkillType type) => currentCooldowns.ContainsKey(type) ? currentCooldowns[type] : 0f;
-    
-    // Public methods for skills to access
-    public PlayerStats GetPlayerStats() => stats;
-    public Rigidbody2D GetRigidbody() => body;
-    public SkillData GetSkillData() => skillData;
 }
