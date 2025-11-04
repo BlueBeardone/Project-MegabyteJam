@@ -16,6 +16,8 @@ public class PlayerSkillManager : MonoBehaviour
     private Dictionary<SkillType, float> currentCooldowns = new Dictionary<SkillType, float>();
     private SkillFactory skillFactory = new SkillFactory();
     private Dictionary<SkillType, ISkill> skillInstances = new Dictionary<SkillType, ISkill>();
+    private int framesSinceJump = 0;
+    private int requiredFramesBetweenJumps = 100;
     
     // Double jump tracking
     private bool hasDoubleJumped = false;
@@ -77,18 +79,29 @@ public class PlayerSkillManager : MonoBehaviour
     
     private void HandleDoubleJump()
     {
-        // Double jump is handled separately since it uses the same input as regular jump
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && 
-            playerStats.hasJumped && HasSkill(SkillType.DoubleJump) && !hasDoubleJumped)
+        // Reset double jump when landing
+        // if (!playerStats.hasJumped)
+        // {
+        //     hasDoubleJumped = false;
+        //     framesSinceJump = 0;
+        //     return;
+        // }
+    
+        // Count frames since we started jumping
+        if (playerStats.hasJumped)
         {
+            framesSinceJump++;
+        }
+    
+        // Double jump only after enough frames have passed
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) &&
+            HasSkill(SkillType.DoubleJump) && 
+            !hasDoubleJumped &&
+            framesSinceJump >= requiredFramesBetweenJumps)
+        {
+            Debug.Log("Double jump triggered after " + framesSinceJump + " frames");
             TryExecuteSkill(SkillType.DoubleJump);
             hasDoubleJumped = true;
-        }
-        
-        // Reset double jump when landing
-        if (!playerStats.hasJumped)
-        {
-            hasDoubleJumped = false;
         }
     }
     
