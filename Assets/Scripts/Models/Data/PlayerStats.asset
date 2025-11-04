@@ -19,6 +19,6 @@ MonoBehaviour:
   CurrentHealth: 5
   FallSpeed: 1
   JumpHeight: 10
-  Speed: 10
+  Speed: 5
   hasJumped: 1
   TimeElapsed: 0
